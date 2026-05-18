@@ -1,0 +1,1251 @@
+:root{
+  --bg:#06050d;
+  --bg2:#0b0716;
+  --panel:rgba(18,14,34,.58);
+  --panel2:rgba(24,18,46,.72);
+  --text:#f2f0ff;
+  --muted:#a29ab6;
+  --purple:#a45cff;
+  --purple2:#7b2dff;
+  --line:rgba(172,102,255,.45);
+  --glow:0 0 22px rgba(150,72,255,.65), 0 0 54px rgba(117,43,255,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Arial,sans-serif}
+body{overflow-x:hidden}
+.app-shell{
+  position:relative;min-height:100dvh;display:flex;justify-content:center;
+  padding:26px 14px calc(116px + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(circle at 72% 8%,rgba(135,75,255,.28),transparent 28%),
+    radial-gradient(circle at 12% 34%,rgba(122,50,255,.15),transparent 30%),
+    linear-gradient(180deg,#070610 0%,#090713 45%,#05050c 100%);
+}
+.noise{position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E")}
+.bg-orb{position:fixed;border-radius:50%;filter:blur(50px);pointer-events:none}
+.bg-orb-a{width:220px;height:220px;right:-80px;top:90px;background:rgba(146,77,255,.2)}
+.bg-orb-b{width:220px;height:220px;left:-90px;bottom:140px;background:rgba(103,34,255,.18)}
+.app{width:100%;max-width:430px;position:relative;z-index:1}
+.hero{display:flex;align-items:flex-start;justify-content:space-between;margin:52px 4px 28px}
+.hero h1{margin:0;font-size:clamp(48px,13vw,68px);line-height:.88;letter-spacing:-3px;font-weight:900;text-shadow:0 0 30px rgba(255,255,255,.12)}
+.hero p{margin:14px 0 0;color:#b985ff;font-size:20px;font-weight:800}
+.orb-logo{width:118px;height:118px;color:#d9b8ff;position:relative;filter:drop-shadow(0 0 20px rgba(155,84,255,.8));animation:pulse 3.3s infinite}
+.orb-logo svg{width:100%;height:100%}
+.orb-core{position:absolute;left:50%;top:50%;width:12px;height:12px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;box-shadow:0 0 18px 8px rgba(164,92,255,.85)}
+.step{margin:0 0 18px}
+.step-no{color:#b067ff;font-weight:900;font-size:25px;margin:0 0 8px 4px;text-shadow:0 0 16px rgba(164,92,255,.5)}
+.glass-card{
+  border:1px solid var(--line);background:linear-gradient(135deg,rgba(23,18,42,.7),rgba(10,8,20,.54));
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  border-radius:22px;box-shadow:inset 0 0 28px rgba(150,92,255,.08),0 10px 38px rgba(0,0,0,.28);
+}
+.pin-card{height:94px;min-height:94px;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;overflow:hidden}
+.micro{color:#c084ff;font-size:13px;font-weight:900;letter-spacing:.2px}
+.pin-input{margin-top:6px;width:270px;max-width:100%;background:transparent;border:0;outline:0;color:var(--text);font-size:28px;font-weight:800;letter-spacing:7px;line-height:1}
+.pin-input::placeholder{color:rgba(245,242,255,.68)}
+.hint{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;margin-top:6px;line-height:1.1}
+.shield{font-size:18px;color:#b46cff}
+.pin-dots{display:flex;gap:13px}
+.pin-dots span{width:16px;height:16px;border:2px solid #b46cff;border-radius:50%;box-shadow:0 0 12px rgba(164,92,255,.35)}
+.pin-dots span.filled{background:#b46cff}
+.message-card{padding:20px}
+.label-row{display:flex;align-items:center;gap:14px}
+.mini-icon{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(128,80,255,.14));box-shadow:inset 0 0 18px rgba(255,255,255,.08);color:#fff}
+textarea{width:100%;height:82px;margin-top:16px;resize:none;background:transparent;border:0;outline:0;color:#fff;font-size:28px;line-height:1.2;font-weight:500}
+textarea::placeholder{color:rgba(221,215,239,.55)}
+.message-meta{display:flex;justify-content:space-between;align-items:end;color:#c084ff;font-size:18px}
+.message-meta .hint{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;margin-top:6px;line-height:1.1}
+.encode-cta{
+  width:100%;border:1px solid rgba(186,106,255,.82);background:linear-gradient(135deg,rgba(75,28,140,.65),rgba(20,14,39,.72));
+  border-radius:22px;min-height:94px;color:#fff;display:flex;align-items:center;gap:22px;padding:18px 20px;box-shadow:var(--glow);cursor:pointer;
+  transition:transform .18s ease,filter .18s ease;
+}
+.encode-cta:active,.wide-glow-btn:active,.action-row button:active,.nav-btn:active{transform:scale(.97)}
+.spark{width:48px;height:48px;color:#fff;text-shadow:0 0 18px rgba(255,255,255,.7)}
+.cta-text{display:flex;flex-direction:column;text-align:left;flex:1}
+.cta-text strong{font-size:28px;line-height:1.05}
+.cta-text em{font-style:normal;color:#c796ff;font-size:17px;margin-top:8px;font-weight:700}
+.arrow{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#9348ff,#5f18cb);color:#fff;box-shadow:0 0 30px rgba(158,83,255,.72)}
+.output-card{padding:20px}
+.output-top{display:flex;justify-content:space-between;align-items:flex-start}
+.pulse-badge{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#8746ff,#5820bf);box-shadow:0 0 25px rgba(164,92,255,.9);animation:pulse 2.2s infinite}
+.code-output{text-align:center;font-size:38px;font-weight:900;letter-spacing:5px;margin:30px 0 24px;color:#f4f0ff}
+.code-info{display:flex;justify-content:center;align-items:center;color:#d6d0e6;font-size:16px}
+.code-info b{display:inline-block;width:8px;height:8px;border-radius:50%;background:#a45cff;box-shadow:0 0 14px #a45cff;margin:0 9px 1px 0}
+.divider{height:1px;background:rgba(255,255,255,.12);margin:18px 0}
+.action-row{display:grid;grid-template-columns:1fr 1fr;gap:1px}
+.action-row button{border:0;background:transparent;color:#c084ff;font-weight:900;font-size:16px;padding:10px;cursor:pointer}
+.action-row button:first-child{border-right:1px solid rgba(255,255,255,.18)}
+.locked-note{text-align:center;color:#887aa5;margin-top:14px;font-size:14px}
+.screen{display:none;animation:fade .22s ease}
+.screen.active{display:block}
+.page-title{margin:62px 6px 22px}
+.page-title h2{font-size:40px;margin:0 0 8px;letter-spacing:-1px}
+.page-title p{margin:0;color:#b9a9d8;font-size:17px}
+.decode-card,.revealed-card,.history-card,.guide-card{padding:20px;margin-bottom:18px}
+.text-field{width:100%;height:58px;margin-top:12px;border:1px solid rgba(172,102,255,.35);border-radius:15px;background:rgba(255,255,255,.04);color:#fff;padding:0 16px;font-size:20px;outline:0}
+.space-top{margin-top:18px}
+.wide-glow-btn{width:100%;height:62px;margin-top:20px;border:0;border-radius:18px;background:linear-gradient(135deg,#9c51ff,#6120d0);color:#fff;font-size:19px;font-weight:900;box-shadow:var(--glow);cursor:pointer}
+.revealed-text{min-height:54px;margin:14px 0 0;color:#eee;font-size:21px;line-height:1.35}
+.section-head{display:flex;align-items:center;justify-content:space-between}
+.section-head h3{margin:5px 0 0;font-size:22px}
+.small-btn{border:1px solid rgba(172,102,255,.45);background:rgba(255,255,255,.04);color:#c084ff;border-radius:12px;padding:9px 12px;font-weight:800}
+.history-list{margin-top:16px;display:grid;gap:10px}
+.history-item{padding:13px;border-radius:15px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08)}
+.history-code{font-weight:900;color:#fff;letter-spacing:2px}
+.history-time{color:#998bad;font-size:12px;margin-top:5px}
+.guide-card h3{margin:0 0 10px;color:#d5b2ff}
+.guide-card p{margin:0;color:#d4cde4;line-height:1.48}
+.warning{border-color:rgba(255,190,90,.36)}
+.bottom-nav{
+  position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);
+  width:min(430px,calc(100% - 22px));height:92px;border-radius:42px;z-index:10;
+  display:grid;grid-template-columns:repeat(3,1fr);align-items:center;padding:10px 18px;
+  border:1px solid rgba(172,102,255,.24);background:rgba(16,14,30,.72);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  box-shadow:0 -10px 45px rgba(0,0,0,.42),inset 0 0 24px rgba(255,255,255,.04)
+}
+.nav-btn{border:0;background:transparent;color:#7f7697;display:flex;flex-direction:column;gap:6px;align-items:center;font-weight:800;cursor:pointer}
+.nav-icon{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;border:1px solid transparent}
+.nav-btn.active{color:#fff}
+.nav-btn.active .nav-icon{background:linear-gradient(145deg,#7d35ff,#3d159e);box-shadow:0 0 25px rgba(151,74,255,.8)}
+.nav-btn.active::after{content:"";width:8px;height:8px;border-radius:50%;background:#a45cff;box-shadow:0 0 14px #a45cff}
+.toast{position:fixed;left:50%;bottom:calc(120px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);opacity:0;z-index:20;background:rgba(20,14,36,.92);border:1px solid rgba(172,102,255,.42);border-radius:16px;padding:12px 16px;color:#fff;box-shadow:var(--glow);transition:.22s}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media (max-width:380px){
+  .hero h1{font-size:45px}.orb-logo{width:92px;height:92px}.pin-input{width:225px;font-size:25px;letter-spacing:5px}.pin-card{height:94px;min-height:94px;padding:12px 14px}.code-output{font-size:30px}.cta-text strong{font-size:24px}
+}.orb-logo{width:92px;height:92px}.pin-input{margin-top:6px;width:270px;max-width:100%;background:transparent;border:0;outline:0;color:var(--text);font-size:28px;font-weight:800;letter-spacing:7px;line-height:1}.pin-card{height:94px;min-height:94px;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;overflow:hidden}.code-output{font-size:30px}.cta-text strong{font-size:24px}
+}.orb-logo{width:92px;height:92px}.pin-input{margin-top:6px;width:270px;max-width:100%;background:transparent;border:0;outline:0;color:var(--text);font-size:28px;font-weight:800;letter-spacing:7px;line-height:1}.pin-card{height:94px;min-height:94px;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;overflow:hidden}.code-output{font-size:30px}.cta-text strong{font-size:24px}
+}
+@media (min-width:700px){.app-shell{padding-top:18px}.hero{margin-top:40px}}
+
+.code-placeholder{font-size:20px;letter-spacing:1px;color:#8f84a8;}
+
+.encrypted-status{margin-top:-4px;color:#b9a9d8;font-size:14px;font-weight:800;letter-spacing:.3px;text-transform:none;opacity:.9}
+
+
+/* Stable SVG UI icons — prevents Unicode fallback changes after publishing */
+.svg-icon{
+  width:1em;
+  height:1em;
+  display:block;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  flex:0 0 auto;
+}
+.mini-icon .svg-icon{width:22px;height:22px}
+.shield .svg-icon{width:22px;height:22px}
+.pulse-badge .svg-icon{width:24px;height:24px}
+.spark .svg-icon{width:48px;height:48px;filter:drop-shadow(0 0 14px rgba(255,255,255,.55))}
+.arrow .svg-icon{width:32px;height:32px}
+.nav-icon .svg-icon{width:28px;height:28px}
+.btn-svg{width:22px;height:22px}
+.action-row button{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+}
+.locked-note{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:7px;
+}
+.tiny-svg{width:14px;height:14px}
+
+
+/* Compact mobile layout: show 01–04 on one phone screen as much as possible */
+@media (max-width: 520px){
+  .app-shell{
+    padding: 10px 12px calc(86px + env(safe-area-inset-bottom));
+    min-height: 100dvh;
+  }
+
+  .app{
+    max-width: 100%;
+  }
+
+  .hero{
+    margin: 30px 4px 18px;
+  }
+
+  .hero h1{
+    font-size: clamp(44px, 15vw, 58px);
+    letter-spacing: -2px;
+  }
+
+  .hero p{
+    margin-top: 8px;
+    font-size: 20px;
+  }
+
+  .step{
+    margin-bottom: 10px;
+  }
+
+  .step-no{
+    font-size: 26px;
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+
+  .pin-card{
+    height: 78px;
+    min-height: 78px;
+    padding: 10px 18px;
+    border-radius: 20px;
+  }
+
+  .micro{
+    font-size: 12px;
+  }
+
+  .pin-input{
+    margin-top: 5px;
+    width: 230px;
+    font-size: 26px;
+    letter-spacing: 7px;
+    line-height: 1;
+  }
+
+  .pin-dots{
+    gap: 10px;
+  }
+
+  .pin-dots span{
+    width: 15px;
+    height: 15px;
+  }
+
+  .hint{
+    margin-top: 5px;
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .shield .svg-icon{
+    width: 18px;
+    height: 18px;
+  }
+
+  .message-card{
+    min-height: 120px;
+    padding: 16px 18px;
+    border-radius: 20px;
+  }
+
+  .mini-icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .mini-icon .svg-icon{
+    width: 21px;
+    height: 21px;
+  }
+
+  textarea{
+    height: 52px;
+    margin-top: 14px;
+    font-size: 27px;
+  }
+
+  .message-meta{
+    font-size: 18px;
+  }
+
+  .message-meta .hint{
+    font-size: 14px;
+  }
+
+  .encode-cta{
+    min-height: 78px;
+    height: 78px;
+    padding: 14px 18px;
+    border-radius: 20px;
+    gap: 18px;
+  }
+
+  .spark,
+  .spark .svg-icon{
+    width: 42px;
+    height: 42px;
+  }
+
+  .cta-text strong{
+    font-size: 27px;
+  }
+
+  .cta-text em{
+    font-size: 16px;
+    margin-top: 4px;
+  }
+
+  .arrow{
+    width: 52px;
+    height: 52px;
+  }
+
+  .arrow .svg-icon{
+    width: 30px;
+    height: 30px;
+  }
+
+  .output-card{
+    padding: 16px 18px;
+    border-radius: 20px;
+  }
+
+  .pulse-badge{
+    width: 44px;
+    height: 44px;
+  }
+
+  .code-output{
+    font-size: 32px;
+    margin: 22px 0 12px;
+    letter-spacing: 4px;
+  }
+
+  .code-placeholder{
+    font-size: 18px;
+    letter-spacing: .5px;
+  }
+
+  .encrypted-status{
+    font-size: 13px;
+    margin-top: 0;
+  }
+
+  .divider{
+    margin: 12px 0;
+  }
+
+  .action-row button{
+    font-size: 15px;
+    padding: 8px;
+  }
+
+  .locked-note{
+    margin-top: 8px;
+    font-size: 13px;
+  }
+
+  .bottom-nav{
+    height: 78px;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    border-radius: 36px;
+    padding: 8px 14px;
+  }
+
+  .nav-icon{
+    width: 42px;
+    height: 42px;
+  }
+
+  .nav-icon .svg-icon{
+    width: 25px;
+    height: 25px;
+  }
+
+  .nav-btn{
+    gap: 4px;
+    font-size: 13px;
+  }
+
+  .nav-btn.active::after{
+    width: 7px;
+    height: 7px;
+  }
+}
+
+/* Extra compact mode for iPhone Safari with visible browser bars */
+@media (max-width: 430px) and (max-height: 760px){
+  .app-shell{
+    padding-top: 6px;
+    padding-bottom: calc(78px + env(safe-area-inset-bottom));
+  }
+
+  .hero{
+    margin: 20px 4px 14px;
+  }
+
+  .hero h1{
+    font-size: 48px;
+  }
+
+  .hero p{
+    font-size: 18px;
+    margin-top: 6px;
+  }
+
+  .step{
+    margin-bottom: 8px;
+  }
+
+  .step-no{
+    font-size: 24px;
+  }
+
+  .pin-card{
+    height: 70px;
+    min-height: 70px;
+    padding: 8px 16px;
+  }
+
+  .pin-input{
+    font-size: 23px;
+    width: 205px;
+    letter-spacing: 6px;
+  }
+
+  .hint{
+    font-size: 12px;
+  }
+
+  .message-card{
+    min-height: 104px;
+    padding: 14px 16px;
+  }
+
+  .mini-icon{
+    width: 36px;
+    height: 36px;
+  }
+
+  textarea{
+    height: 42px;
+    margin-top: 11px;
+    font-size: 24px;
+  }
+
+  .message-meta,
+  .message-meta .hint{
+    font-size: 13px;
+  }
+
+  .encode-cta{
+    height: 70px;
+    min-height: 70px;
+    padding: 12px 16px;
+  }
+
+  .spark,
+  .spark .svg-icon{
+    width: 36px;
+    height: 36px;
+  }
+
+  .cta-text strong{
+    font-size: 23px;
+  }
+
+  .cta-text em{
+    font-size: 14px;
+  }
+
+  .arrow{
+    width: 46px;
+    height: 46px;
+  }
+
+  .output-card{
+    padding: 14px 16px;
+  }
+
+  .pulse-badge{
+    width: 38px;
+    height: 38px;
+  }
+
+  .code-output{
+    font-size: 27px;
+    margin: 16px 0 9px;
+  }
+
+  .code-placeholder{
+    font-size: 16px;
+  }
+
+  .action-row button{
+    font-size: 14px;
+    padding: 7px;
+  }
+
+  .locked-note{
+    font-size: 12px;
+    margin-top: 6px;
+  }
+
+  .bottom-nav{
+    height: 70px;
+  }
+
+  .nav-icon{
+    width: 38px;
+    height: 38px;
+  }
+}
+
+
+/* ULTRA COMPACT MOBILE OVERRIDE — fit Encode screen 01–04 without scrolling */
+@media (max-width: 520px){
+  html, body{
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  .app-shell{
+    padding: 4px 12px calc(70px + env(safe-area-inset-bottom)) !important;
+    min-height: 100dvh;
+  }
+
+  .hero{
+    margin: 18px 4px 10px !important;
+  }
+
+  .hero h1{
+    font-size: clamp(38px, 13vw, 50px) !important;
+    line-height: .82 !important;
+    letter-spacing: -2px !important;
+  }
+
+  .hero p{
+    margin-top: 6px !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+  }
+
+  .step{
+    margin-bottom: 6px !important;
+  }
+
+  .step-no{
+    font-size: 24px !important;
+    line-height: .9 !important;
+    margin: 0 0 2px 4px !important;
+  }
+
+  .glass-card{
+    border-radius: 18px !important;
+  }
+
+  .pin-card{
+    height: 64px !important;
+    min-height: 64px !important;
+    padding: 7px 16px !important;
+    overflow: hidden !important;
+  }
+
+  .micro{
+    font-size: 11px !important;
+    line-height: 1 !important;
+  }
+
+  .pin-input{
+    margin-top: 4px !important;
+    width: 210px !important;
+    font-size: 22px !important;
+    letter-spacing: 5px !important;
+    line-height: 1 !important;
+  }
+
+  .pin-dots{
+    gap: 9px !important;
+  }
+
+  .pin-dots span{
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .hint{
+    margin-top: 4px !important;
+    font-size: 11px !important;
+    line-height: 1 !important;
+    gap: 6px !important;
+  }
+
+  .shield .svg-icon{
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .message-card{
+    height: 126px !important;
+    min-height: 126px !important;
+    padding: 14px 16px !important;
+    overflow: hidden !important;
+  }
+
+  .label-row{
+    gap: 10px !important;
+  }
+
+  .mini-icon{
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 9px !important;
+  }
+
+  .mini-icon .svg-icon{
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  textarea{
+    height: 42px !important;
+    margin-top: 10px !important;
+    font-size: 23px !important;
+    line-height: 1.05 !important;
+  }
+
+  .message-meta{
+    font-size: 13px !important;
+    line-height: 1 !important;
+  }
+
+  .message-meta .hint{
+    font-size: 12px !important;
+  }
+
+  .encode-cta{
+    height: 66px !important;
+    min-height: 66px !important;
+    padding: 10px 16px !important;
+    border-radius: 18px !important;
+    gap: 14px !important;
+  }
+
+  .spark,
+  .spark .svg-icon{
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .cta-text strong{
+    font-size: 24px !important;
+    line-height: 1 !important;
+  }
+
+  .cta-text em{
+    font-size: 14px !important;
+    margin-top: 3px !important;
+    line-height: 1 !important;
+  }
+
+  .arrow{
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  .arrow .svg-icon{
+    width: 27px !important;
+    height: 27px !important;
+  }
+
+  .output-card{
+    height: 218px !important;
+    min-height: 218px !important;
+    padding: 14px 16px !important;
+    overflow: hidden !important;
+  }
+
+  .pulse-badge{
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .pulse-badge .svg-icon{
+    width: 21px !important;
+    height: 21px !important;
+  }
+
+  .code-output{
+    font-size: 27px !important;
+    line-height: 1 !important;
+    letter-spacing: 3px !important;
+    margin: 14px 0 8px !important;
+  }
+
+  .code-placeholder{
+    font-size: 16px !important;
+    letter-spacing: .2px !important;
+  }
+
+  .encrypted-status{
+    font-size: 12px !important;
+    margin-top: 0 !important;
+  }
+
+  .code-info b{
+    width: 7px !important;
+    height: 7px !important;
+  }
+
+  .divider{
+    margin: 10px 0 !important;
+  }
+
+  .action-row button{
+    font-size: 13px !important;
+    padding: 6px !important;
+    gap: 7px !important;
+  }
+
+  .btn-svg{
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .locked-note{
+    margin-top: 6px !important;
+    font-size: 11px !important;
+    line-height: 1 !important;
+  }
+
+  .tiny-svg{
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  .bottom-nav{
+    height: 64px !important;
+    bottom: calc(4px + env(safe-area-inset-bottom)) !important;
+    border-radius: 30px !important;
+    padding: 6px 12px !important;
+  }
+
+  .nav-icon{
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 10px !important;
+  }
+
+  .nav-icon .svg-icon{
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .nav-btn{
+    gap: 2px !important;
+    font-size: 11px !important;
+    line-height: 1 !important;
+  }
+
+  .nav-btn.active::after{
+    width: 6px !important;
+    height: 6px !important;
+  }
+}
+
+/* Even tighter for Safari visible address bar / short viewport */
+@media (max-width: 430px) and (max-height: 720px){
+  .hero{
+    margin-top: 10px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .hero h1{
+    font-size: 42px !important;
+  }
+
+  .hero p{
+    font-size: 16px !important;
+  }
+
+  .step-no{
+    font-size: 22px !important;
+  }
+
+  .pin-card{
+    height: 58px !important;
+    min-height: 58px !important;
+  }
+
+  .message-card{
+    height: 112px !important;
+    min-height: 112px !important;
+  }
+
+  textarea{
+    height: 34px !important;
+    font-size: 21px !important;
+  }
+
+  .encode-cta{
+    height: 60px !important;
+    min-height: 60px !important;
+  }
+
+  .cta-text strong{
+    font-size: 21px !important;
+  }
+
+  .cta-text em{
+    font-size: 12px !important;
+  }
+
+  .output-card{
+    height: 196px !important;
+    min-height: 196px !important;
+  }
+
+  .bottom-nav{
+    height: 58px !important;
+  }
+}
+
+
+/* TEXT OVERLAP FIX — keep compact layout but prevent labels/helper text from being clipped */
+@media (max-width: 520px){
+  .pin-card{
+    height: 86px !important;
+    min-height: 86px !important;
+    padding: 12px 16px !important;
+    overflow: visible !important;
+  }
+
+  .pin-input{
+    margin-top: 7px !important;
+    font-size: 24px !important;
+    line-height: 1.05 !important;
+  }
+
+  .hint{
+    margin-top: 7px !important;
+    line-height: 1.15 !important;
+  }
+
+  .message-card{
+    height: 142px !important;
+    min-height: 142px !important;
+    overflow: visible !important;
+  }
+
+  textarea{
+    height: 50px !important;
+    margin-top: 12px !important;
+    line-height: 1.1 !important;
+  }
+
+  .output-card{
+    height: 238px !important;
+    min-height: 238px !important;
+    overflow: visible !important;
+  }
+
+  .locked-note{
+    line-height: 1.15 !important;
+  }
+}
+
+@media (max-width: 430px) and (max-height: 760px){
+  .pin-card{
+    height: 82px !important;
+    min-height: 82px !important;
+    padding: 11px 15px !important;
+  }
+
+  .pin-input{
+    font-size: 22px !important;
+    margin-top: 6px !important;
+  }
+
+  .hint{
+    font-size: 11px !important;
+    margin-top: 6px !important;
+  }
+
+  .message-card{
+    height: 132px !important;
+    min-height: 132px !important;
+  }
+
+  textarea{
+    height: 44px !important;
+    font-size: 22px !important;
+  }
+
+  .output-card{
+    height: 226px !important;
+    min-height: 226px !important;
+  }
+}
+
+
+/* MOBILE SAFE AREA FIX — prevents iPhone status bar from covering the PULSARY logo */
+@media (max-width: 520px){
+  .app-shell{
+    padding-top: calc(env(safe-area-inset-top) + 42px) !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .hero{
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .hero h1{
+    font-size: clamp(42px, 13.5vw, 54px) !important;
+    line-height: .82 !important;
+    letter-spacing: -2px !important;
+  }
+
+  .hero p{
+    font-size: 18px !important;
+    margin-top: 8px !important;
+  }
+
+  .page-title{
+    margin-top: 0 !important;
+    padding-top: calc(env(safe-area-inset-top) + 42px) !important;
+  }
+
+  .page-title h2{
+    font-size: 34px !important;
+    line-height: .95 !important;
+  }
+
+  .page-title p{
+    font-size: 15px !important;
+  }
+
+  .screen[data-screen="decode"],
+  .screen[data-screen="guide"]{
+    padding-top: 0 !important;
+  }
+}
+
+/* iPhone / narrow mobile refinement */
+@media (max-width: 430px){
+  .app-shell{
+    padding-top: calc(env(safe-area-inset-top) + 46px) !important;
+  }
+
+  .hero h1{
+    font-size: 48px !important;
+  }
+
+  .hero p{
+    font-size: 17px !important;
+  }
+
+  .page-title{
+    padding-top: calc(env(safe-area-inset-top) + 46px) !important;
+  }
+}
+
+/* Short mobile viewport: keep logo safe but not too huge */
+@media (max-width: 430px) and (max-height: 760px){
+  .app-shell{
+    padding-top: calc(env(safe-area-inset-top) + 42px) !important;
+  }
+
+  .hero h1{
+    font-size: 44px !important;
+  }
+
+  .hero p{
+    font-size: 16px !important;
+    margin-top: 6px !important;
+  }
+
+  .page-title{
+    padding-top: calc(env(safe-area-inset-top) + 42px) !important;
+  }
+}
+
+
+/* BREATHING MOBILE LAYOUT — less cramped, readable, still optimized for phone */
+@media (max-width: 520px){
+  .app-shell{
+    padding-top: calc(env(safe-area-inset-top) + 38px) !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    padding-bottom: calc(96px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .hero{
+    margin: 0 4px 18px !important;
+  }
+
+  .hero h1{
+    font-size: clamp(46px, 14vw, 58px) !important;
+    line-height: .86 !important;
+    letter-spacing: -2px !important;
+  }
+
+  .hero p{
+    margin-top: 9px !important;
+    font-size: 19px !important;
+    line-height: 1.05 !important;
+  }
+
+  .step{
+    margin-bottom: 12px !important;
+  }
+
+  .step-no{
+    font-size: 26px !important;
+    line-height: 1 !important;
+    margin: 0 0 6px 4px !important;
+  }
+
+  .glass-card{
+    border-radius: 20px !important;
+  }
+
+  .pin-card{
+    height: 96px !important;
+    min-height: 96px !important;
+    padding: 14px 18px !important;
+    overflow: visible !important;
+  }
+
+  .micro{
+    font-size: 12px !important;
+    line-height: 1.1 !important;
+  }
+
+  .pin-input{
+    margin-top: 8px !important;
+    width: 235px !important;
+    font-size: 27px !important;
+    letter-spacing: 6px !important;
+    line-height: 1.05 !important;
+  }
+
+  .pin-dots{
+    gap: 10px !important;
+  }
+
+  .pin-dots span{
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .hint{
+    margin-top: 8px !important;
+    font-size: 13px !important;
+    line-height: 1.15 !important;
+    gap: 8px !important;
+  }
+
+  .message-card{
+    height: 154px !important;
+    min-height: 154px !important;
+    padding: 17px 18px !important;
+    overflow: visible !important;
+  }
+
+  .label-row{
+    gap: 12px !important;
+  }
+
+  .mini-icon{
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 11px !important;
+  }
+
+  .mini-icon .svg-icon{
+    width: 21px !important;
+    height: 21px !important;
+  }
+
+  textarea{
+    height: 54px !important;
+    margin-top: 14px !important;
+    font-size: 27px !important;
+    line-height: 1.12 !important;
+  }
+
+  .message-meta{
+    font-size: 16px !important;
+    line-height: 1.1 !important;
+  }
+
+  .message-meta .hint{
+    font-size: 13px !important;
+  }
+
+  .encode-cta{
+    height: 86px !important;
+    min-height: 86px !important;
+    padding: 15px 18px !important;
+    border-radius: 20px !important;
+    gap: 16px !important;
+  }
+
+  .spark,
+  .spark .svg-icon{
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .cta-text strong{
+    font-size: 27px !important;
+    line-height: 1.04 !important;
+  }
+
+  .cta-text em{
+    font-size: 15px !important;
+    margin-top: 5px !important;
+    line-height: 1.05 !important;
+  }
+
+  .arrow{
+    width: 52px !important;
+    height: 52px !important;
+  }
+
+  .arrow .svg-icon{
+    width: 29px !important;
+    height: 29px !important;
+  }
+
+  .output-card{
+    height: 258px !important;
+    min-height: 258px !important;
+    padding: 18px !important;
+    border-radius: 20px !important;
+    overflow: visible !important;
+  }
+
+  .pulse-badge{
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .pulse-badge .svg-icon{
+    width: 23px !important;
+    height: 23px !important;
+  }
+
+  .code-output{
+    font-size: 30px !important;
+    line-height: 1.05 !important;
+    letter-spacing: 3px !important;
+    margin: 22px 0 11px !important;
+  }
+
+  .code-placeholder{
+    font-size: 18px !important;
+    letter-spacing: .2px !important;
+  }
+
+  .encrypted-status{
+    font-size: 13px !important;
+    margin-top: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  .divider{
+    margin: 15px 0 !important;
+  }
+
+  .action-row button{
+    font-size: 15px !important;
+    padding: 8px !important;
+    gap: 8px !important;
+  }
+
+  .btn-svg{
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  .locked-note{
+    margin-top: 10px !important;
+    font-size: 12px !important;
+    line-height: 1.15 !important;
+  }
+
+  .bottom-nav{
+    height: 78px !important;
+    bottom: calc(10px + env(safe-area-inset-bottom)) !important;
+    border-radius: 36px !important;
+    padding: 8px 14px !important;
+  }
+
+  .nav-icon{
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 12px !important;
+  }
+
+  .nav-icon .svg-icon{
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .nav-btn{
+    gap: 4px !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+  }
+
+  .page-title{
+    padding-top: calc(env(safe-area-inset-top) + 38px) !important;
+    margin-bottom: 20px !important;
+  }
+
+  .page-title h2{
+    font-size: 38px !important;
+  }
+
+  .decode-card,
+  .revealed-card,
+  .history-card,
+  .guide-card{
+    padding: 20px !important;
+    margin-bottom: 16px !important;
+  }
+}
+
+/* On shorter iPhone Safari screens: keep readable, allow a small scroll instead of crushing the UI */
+@media (max-width: 430px) and (max-height: 760px){
+  .app-shell{
+    padding-top: calc(env(safe-area-inset-top) + 34px) !important;
+  }
+
+  .hero h1{
+    font-size: 50px !important;
+  }
+
+  .hero p{
+    font-size: 18px !important;
+  }
+
+  .step{
+    margin-bottom: 10px !important;
+  }
+
+  .pin-card{
+    height: 90px !important;
+    min-height: 90px !important;
+  }
+
+  .message-card{
+    height: 144px !important;
+    min-height: 144px !important;
+  }
+
+  .encode-cta{
+    height: 80px !important;
+    min-height: 80px !important;
+  }
+
+  .output-card{
+    height: 244px !important;
+    min-height: 244px !important;
+  }
+}
